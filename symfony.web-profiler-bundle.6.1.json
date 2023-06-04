@@ -1,0 +1,62 @@
+{
+    "manifests": {
+        "symfony/web-profiler-bundle": {
+            "manifest": {
+                "bundles": {
+                    "Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle": [
+                        "dev",
+                        "test"
+                    ]
+                },
+                "copy-from-recipe": {
+                    "config/": "%CONFIG_DIR%/"
+                },
+                "conflict": {
+                    "symfony/framework-bundle": "<6.1"
+                }
+            },
+            "files": {
+                "config/packages/web_profiler.yaml": {
+                    "contents": [
+                        "when@dev:",
+                        "    web_profiler:",
+                        "        toolbar: true",
+                        "        intercept_redirects: false",
+                        "",
+                        "    framework:",
+                        "        profiler:",
+                        "            only_exceptions: false",
+                        "            collect_serializer_data: true",
+                        "",
+                        "when@test:",
+                        "    web_profiler:",
+                        "        toolbar: false",
+                        "        intercept_redirects: false",
+                        "",
+                        "    framework:",
+                        "        profiler:",
+                        "            collect: false",
+                        "            enabled: false",
+                        ""
+                    ],
+                    "executable": false
+                },
+                "config/routes/web_profiler.yaml": {
+                    "contents": [
+                        "when@dev:",
+                        "    web_profiler_wdt:",
+                        "        resource: '@WebProfilerBundle/Resources/config/routing/wdt.xml'",
+                        "        prefix: /_wdt",
+                        "",
+                        "    web_profiler_profiler:",
+                        "        resource: '@WebProfilerBundle/Resources/config/routing/profiler.xml'",
+                        "        prefix: /_profiler",
+                        ""
+                    ],
+                    "executable": false
+                }
+            },
+            "ref": "acdb9ba28f2efff1c7cbd9741fef7e490355ca0b"
+        }
+    }
+}
